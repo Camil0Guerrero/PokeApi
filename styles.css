@@ -1,0 +1,61 @@
+html {
+	box-sizing: border-box;
+	font-size: 16px;
+}
+
+*,
+*::after,
+*::before {
+	box-sizing: inherit;
+}
+/* Contenedor Tarjetas */
+.poke-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+}
+
+/* Cards */
+.poke-card {
+	border: thin solid #000;
+	width: 300px;
+	text-align: center;
+	height: 400px;
+	overflow: hidden;
+	background-color: gold;
+	box-shadow: 0.1rem 0.1rem 20rem 0rem rgb(119, 14, 255) inset;
+}
+
+.poke-card:nth-child(odd) {
+	box-shadow: 0.1rem 0.1rem 20rem 0rem rgb(0, 247, 255) inset;
+}
+
+.poke-card > img {
+	width: 300px;
+	height: auto;
+	aspect-ratio: 16/9;
+}
+
+/* Spinner */
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.spinner {
+	width: 5vw;
+	height: 5vw;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 50%;
+
+	border: 0.5vw solid #0000001a;
+	/* border-left-color: #09f; */
+	border-top-color: #09f;
+
+	animation: spinner 1s ease-out infinite;
+}

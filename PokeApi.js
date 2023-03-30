@@ -1,34 +1,43 @@
 const d = document;
 
-const getPokemons = async () => {
-	const pokeEndpoint = "https://pokeapi.co/api/v2/pokemon/?limit=20&offset=20";
+const pokeUrl = `https://pokeapi.co/api/v2/pokemon/?limit=20&offset=20`,
 	$container = d.querySelector(".poke-container");
 
+let spinner = `<article class="spinner"></article>`;
+
+$container.innerHTML = spinner;
+
+const getAll = async () => {
 	try {
-		let res = await fetch(pokeEndpoint),
+		let res = await fetch(pokeUrl),
 			json = await res.json(),
 			template = "";
 
-		if (!res.ok) throw { status: res.status, statusText: res.statusText };
+		if (!res.ok) throw { status: res.status, statusText: err.statusText };
 
-		console.log(json);
-
-		for (let i = 0; i < json.results.length; i++) {
-			try {
+		try {
+			for (let i = 0; i < json.results.length; i++) {
 				let res = await fetch(json.results[i].url),
 					pokemon = await res.json();
 
-				template += `<img src="${pokemon.sprites.front_default}" alt="pokemon.name" />`;
-			} catch (err) {
-				console.log(`Error:`, err);
+				if (!res.ok) throw { status: res.status, statusText: err.statusText };
+
+				template += `
+          <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
+        `;
 			}
+		} catch (err) {
+			console.log(err);
+			let message = err.statusText || "Ocurrio un error en la peticion fetch";
+			$container.innerHTML = `<p>${err.status}: ${message}</p>`;
 		}
+
 		$container.innerHTML = template;
 	} catch (err) {
-		let message = err.statusText || "Ocurrio un error";
 		console.log(err);
+		let message = err.statusText || "Ocurrio un error en la peticion fetch";
 		$container.innerHTML = `<p>${err.status}: ${message}</p>`;
 	}
 };
 
-d.addEventListener("DOMContentLoaded", getPokemons());
+d.addEventListener("DOMContentLoaded", getAll);
