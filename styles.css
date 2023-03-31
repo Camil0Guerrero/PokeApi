@@ -8,31 +8,78 @@ html {
 *::before {
 	box-sizing: inherit;
 }
+
+body {
+	margin: 0;
+}
+
 /* Contenedor Tarjetas */
 .poke-container {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+	grid-template-columns: repeat(6, 150px);
+	justify-content: space-around;
+	align-items: center;
+	gap: 1rem;
+}
+
+.poke-container .spinner {
+	grid-column: span 3;
 }
 
 /* Cards */
+
+figure {
+	margin: 8px;
+}
+
+.poke-center {
+	max-width: 87%;
+	perspective: 10rem;
+}
+
 .poke-card {
 	border: thin solid #000;
+	background-color: rgb(88, 255, 124);
 	width: 300px;
 	text-align: center;
 	height: 400px;
 	overflow: hidden;
-	background-color: gold;
-	box-shadow: 0.1rem 0.1rem 20rem 0rem rgb(119, 14, 255) inset;
+	box-shadow: 0.1rem 0.1rem 20rem 0rem gold inset;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transition: z-index 0.3s ease-in-out;
+	transform: rotateZ(2deg);
 }
 
 .poke-card:nth-child(odd) {
-	box-shadow: 0.1rem 0.1rem 20rem 0rem rgb(0, 247, 255) inset;
+	background-color: gold;
+	box-shadow: 0.1rem 0.1rem 20rem 0rem rgb(88, 255, 124) inset;
 }
 
 .poke-card > img {
 	width: 300px;
 	height: auto;
 	aspect-ratio: 16/9;
+}
+
+.poke-card > h2 {
+	margin: 4px 0;
+}
+
+.poke-card > h3 {
+	margin: 3px 0;
+}
+
+.poke-card > p {
+	margin: 2px 0;
+}
+
+/* Efecto */
+.poke-card:hover {
+	z-index: 1;
+	transform: rotateZ(0);
 }
 
 /* Spinner */
